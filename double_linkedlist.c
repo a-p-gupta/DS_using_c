@@ -32,7 +32,7 @@ void insert_end()
 	}
 }
 
-//tesing
+
 void insert_end1()												// 2) inserting at end of list through end pointer
 {
 	struct student *s;
