@@ -30,6 +30,7 @@ void insert_end()
 		 s->pre=t;
 		 end=s;
 	}
+	printf("Value inserted successfully");
 }
 
 
@@ -51,6 +52,7 @@ void insert_end1()												// 2) inserting at end of list through end pointer
 		end->post=s;
 		end=s;
 	}
+	printf("Value inserted successfully");
 }
 
 void insert_beg()
@@ -72,6 +74,7 @@ void insert_beg()
 	start->pre=s;
 	start=s;
 	}
+	printf("Value inserted successfully");
 }
 
 void insert_l()
@@ -91,6 +94,8 @@ void insert_l()
 		t=t->post;
 		if(t==NULL){
 			printf("\nInvalid position ");
+			getch();
+			return;
 		}
 	}
 	if(pos==1)
@@ -107,6 +112,7 @@ void insert_l()
 		t->pre=s;
 		(s->pre	)->post=s;
 	}
+	printf("Value inserted successfully");
 }
 
 void deleting_end()										  // 5) deleting at end try remain
@@ -116,6 +122,7 @@ void deleting_end()										  // 5) deleting at end try remain
 	end=end->pre;
 	end->post=NULL;
 	free(t);
+	printf("Value deleted successfully");
 }
 
 void deleting_start()  									// 6) deleting at start try remain
@@ -125,6 +132,7 @@ void deleting_start()  									// 6) deleting at start try remain
 	start=start->post;
 	start->pre=NULL;
 	free(t);
+	printf("Value deleted successfully");
 }
 
 void deleting_l()									// 7) deleting at location of list
@@ -133,33 +141,59 @@ void deleting_l()									// 7) deleting at location of list
 	int pos,i;
 	printf("\nEnter position to be delete : ");
 	scanf("%d",&pos);
-	if(pos==0)
-	printf("\nPosition is invalid ");
+	if(pos==0){
+		printf("\nPosition is invalid ");
+		getch();
+		return;
+	}
 	for(i=0;i<pos-1;i++)
 	{
 		t=t->post;
-		if(t==NULL)
-		printf("\nPosition is invalid");
+		if(t==NULL){
+			printf("\nPosition is invalid");
+			getch();
+			return;
+		}
 	}
 	temp=t;
+	if(temp->pre == NULL){					// temp->pre is null means temp is first node of list
+		start=temp->post;
+	}else{
 	temp->pre->post=temp->post;
+	}
+	
+	if(temp->post == NULL){							// temp->post is null means temp is last node of list
+		end=temp->pre;
+	}else{
 	temp->post->pre=temp->pre;
+	}
 	free(temp);
+	printf("Value deleted successfully");
 }
 
 
 void viewlist_s()
 {														 // 8) view from starting
- struct student *v;
- for( v=start;v!=NULL;v=v->post)	
-	printf("\nEnrollment : %d",v->enroll);
-}
+	 struct student *v;
+	 if(start==NULL && end==NULL){
+	 	printf("\nList is empty ");
+	 }else{
+		 for( v=start;v!=NULL;v=v->post){
+			printf("\nEnrollment : %d",v->enroll);
+		 }	
+	}	
+ }
 
 void viewlist_e()
 { 														// 9) view from ending
  struct student *v;
- for( v=end;v!=NULL;v=v->pre)	
-	printf("\nEnroll : %d",v->enroll);
+ if(start==NULL && end==NULL){
+	 	printf("\nList is empty ");
+	 }else{
+		 for( v=end;v!=NULL;v=v->pre){
+			printf("\nEnrollment : %d",v->enroll);
+		 }	
+	}
 }
 
 void searching()										// 10) searching in linklist
@@ -220,6 +254,11 @@ void menu()
 			getch();
 				break;
 		case 10: exit(0);
+				break;
+		default:
+				 printf("\nEnter Valid choice" );
+				 getch();
+				break;
 	  }
 	}
 	
